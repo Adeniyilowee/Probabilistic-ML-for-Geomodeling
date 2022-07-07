@@ -11,9 +11,8 @@ An optimized open-source python package for surfaces remapping
 from main.data import file
 ```
 ```python
-# Create a simple Mesh by passing vertices and faces
-# Create empty object or pass vertices and faces directly
-# mesh = main.Mesh()
+# This is a work in progress!!
+# Follow the this ReadMe file or run the main_ex.py file
 ```
 ```python
 # vertices do have the shape (n,3), we can pass a list or numpy array
