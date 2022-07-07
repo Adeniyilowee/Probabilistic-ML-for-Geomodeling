@@ -1,6 +1,6 @@
 
 # PyC_Bspline_Opt
-An optimized open-source python package for surfaces remapping
+An optimized open-source python package for surfaces remapping and geological modeling
 
 # Overview
 
@@ -12,10 +12,10 @@ from main.data import file
 ```
 ```python
 # This is a work in progress!!
-# Follow the this ReadMe file or run the main_ex.py file
+# Follow this ReadMe file or run the main_ex.py file
 ```
 ```python
-# vertices do have the shape (n,3), we can pass a list or numpy array
+# !!
 
 ```
 
@@ -59,9 +59,8 @@ volumetrics = data.volumetric_mesh(10, 3)
 ```
 # Requirements
 
-- rgb
-- jbu
-- khe
+- Pyvista
+- Numba
 
 # Developers
 - Full stack developer : Mosaku Adeniyi (Adeniyilowee)
