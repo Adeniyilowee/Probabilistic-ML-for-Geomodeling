@@ -107,5 +107,7 @@ w = 1
 data = file.read_data(sub4, w)
 
 
-subdivision_data = data.visualize_interactive(400, 400)
-volumetrics = data.volumetric_mesh(10, 3)
+subdivision_data = data.visualize_interactive(300, 300)
+volumetrics = data.volumetric_mesh(10, 1)
+
+

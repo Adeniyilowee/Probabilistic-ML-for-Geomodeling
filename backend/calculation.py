@@ -280,27 +280,27 @@ def TDMAsolver(basis_matrix, data_point):
 
 # Step 4
 @njit()
-def smooth(x, degree, i, knots_list):
+def CDB_recursion(x, degree, i, knots_list):
     if degree == 0:
         return 1.0 if knots_list[i] <= x < knots_list[i + 1] else 0.0
     if knots_list[i + degree] == knots_list[i]:
         c1 = 0.0
     else:
-        c1 = (x - knots_list[i]) / (knots_list[i + degree] - knots_list[i]) * smooth(x, degree - 1, i, knots_list)
+        c1 = (x - knots_list[i]) / (knots_list[i + degree] - knots_list[i]) * CDB_recursion(x, degree - 1, i, knots_list)
 
     if knots_list[i + degree + 1] == knots_list[i + 1]:
         c2 = 0.0
     else:
-        c2 = (knots_list[i + degree + 1] - x) / (knots_list[i + degree + 1] - knots_list[i + 1]) * smooth(x, degree - 1, i + 1, knots_list)
+        c2 = (knots_list[i + degree + 1] - x) / (knots_list[i + degree + 1] - knots_list[i + 1]) * CDB_recursion(x, degree - 1, i + 1, knots_list)
 
     y = c1 + c2
 
     return y
 
 @njit()
-def extract_spline(x, knots_list, control_points, degree):
+def b_spline(x, knots_list, control_points, degree):
     lenght_ = len(knots_list) - degree - 1
     assert (lenght_ >= degree + 1) and (len(control_points) >= lenght_)
-    return sum([control_points[i] * smooth(x, degree, i, knots_list) for i in range(lenght_)])
+    return sum([control_points[i] * CDB_recursion(x, degree, i, knots_list) for i in range(lenght_)])
 
 

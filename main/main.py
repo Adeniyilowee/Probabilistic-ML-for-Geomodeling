@@ -114,9 +114,9 @@ class Fit(object):
             for_y = float64(for_y)
             for_z = float64(for_z)
 
-            surface[0][i] = [calculation.extract_spline(m, knots_list_u, for_x, degree) for m in smooth_u]
-            surface[1][i] = [calculation.extract_spline(n, knots_list_u, for_y, degree) for n in smooth_u]
-            surface[2][i] = [calculation.extract_spline(o, knots_list_u, for_z, degree) for o in smooth_u]
+            surface[0][i] = [calculation.b_spline(m, knots_list_u, for_x, degree) for m in smooth_u]
+            surface[1][i] = [calculation.b_spline(n, knots_list_u, for_y, degree) for n in smooth_u]
+            surface[2][i] = [calculation.b_spline(o, knots_list_u, for_z, degree) for o in smooth_u]
 
         smooth_v = [i / b for i in list(range(0, b, 1))]  # NO longer cube but rectangle
 
@@ -135,9 +135,9 @@ class Fit(object):
             for_y = float64(for_y)
             for_z = float64(for_z)
 
-            surface_final[0][:, i] = [calculation.extract_spline(m, knots_list_v, for_x, degree) for m in smooth_v]
-            surface_final[1][:, i] = [calculation.extract_spline(n, knots_list_v, for_y, degree) for n in smooth_v]
-            surface_final[2][:, i] = [calculation.extract_spline(o, knots_list_v, for_z, degree) for o in smooth_v]
+            surface_final[0][:, i] = [calculation.b_spline(m, knots_list_v, for_x, degree) for m in smooth_v]
+            surface_final[1][:, i] = [calculation.b_spline(n, knots_list_v, for_y, degree) for n in smooth_v]
+            surface_final[2][:, i] = [calculation.b_spline(o, knots_list_v, for_z, degree) for o in smooth_v]
 
         i = surface_final[0]
         j = surface_final[1]
