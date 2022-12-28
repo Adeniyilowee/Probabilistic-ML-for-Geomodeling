@@ -109,5 +109,3 @@ data = file.read_data(sub4, w)
 
 subdivision_data = data.visualize_interactive(300, 300)
 volumetrics = data.volumetric_mesh(10, 1)
-
-trii = 0
