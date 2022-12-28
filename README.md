@@ -70,5 +70,3 @@ volumetrics = data.volumetric_mesh(10, 3)
 
 # Developers
 - Full stack developer : Mosaku Adeniyi (Adeniyilowee)
-- Project manager and backend developer : s.Mohammad Moulaeifard (MohammadCGRE)
-- Project supervisor from RWTH Aachen university: Prof. Florian Wellmann
