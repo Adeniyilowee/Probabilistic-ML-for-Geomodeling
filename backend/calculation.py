@@ -214,7 +214,7 @@ def all_ctrl(basis_matrix_u, basis_matrix_v, points):
 
 
 def TDMA(a, b, c, d):
-    # Tri-diagonal matrix solver of a system of linear equations
+    # Tri-diagonal matrix solver for a system of linear equations
 
     lenght_ = len(d)
     l_diagonals, m_diagonals, u_diagonals, x_y = map(list, (a, b, c, d))
