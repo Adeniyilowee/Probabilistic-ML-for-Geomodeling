@@ -190,6 +190,7 @@ class Fit(object):
 
         pv.set_plot_theme('document')
         plotter = pv.Plotter()
+        # analysis of what to expect
         # plotter.add_mesh(b, show_scalar_bar=False)
         # plotter.add_mesh(a, show_scalar_bar=False)
         plotter.add_mesh(mesh, style='wireframe')
