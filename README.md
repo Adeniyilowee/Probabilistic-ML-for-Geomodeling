@@ -1,6 +1,3 @@
-
-# PyC_Bspline_Opt
-
 # Overview
 An optimized open-source python package for surfaces remapping and geological modeling
 
