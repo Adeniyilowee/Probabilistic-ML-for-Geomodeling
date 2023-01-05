@@ -1,9 +1,8 @@
 
 # PyC_Bspline_Opt
-An optimized open-source python package for surfaces remapping and geological modeling
 
 # Overview
-
+An optimized open-source python package for surfaces remapping and geological modeling
 
 # Quick Start
 
@@ -57,8 +56,11 @@ data = file.read_data(surfaces, w)
 subdivision_data = data.visualize_interactive(400, 400)
 volumetrics = data.volumetric_mesh(10, 3)
 ```
-# Requirements
+# Visualization
+![]()
 
+
+# Requirements
 - pyvista~=0.33.0
 - QtPy~=2.0.0
 - PyQt5~=5.15.6
@@ -69,5 +71,9 @@ volumetrics = data.volumetric_mesh(10, 3)
 - setuptools~=57.0.0
 
 
+# License
+The 2D Cubic Spline is under MIT license. https://choosealicense.com/licenses/mit/
+
+
 # Developers
-- Full stack developer : Mosaku Adeniyi (Adeniyilowee)
+Full stack developer : Mosaku Adeniyi (Adeniyilowee)
