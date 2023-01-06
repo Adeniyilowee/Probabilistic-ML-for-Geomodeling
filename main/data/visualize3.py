@@ -7,9 +7,9 @@ def interactive_plotting(all_data, degree, a, b):
     data_points_mesh = all_data.datapoint_model()
     start = time.time()
     dim = (a, b, 1)
-    model_subdivided_mesh = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][0], all_data.data['dimension'][0], all_data.data['ctr_points'][0], all_data.data['knots_list_u'][0], all_data.data['knots_list_v'][0])
-    model_subdivided_mesh_1 = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][1], all_data.data['dimension'][1], all_data.data['ctr_points'][1], all_data.data['knots_list_u'][1], all_data.data['knots_list_v'][1])
-    model_subdivided_mesh_2 = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][2], all_data.data['dimension'][2], all_data.data['ctr_points'][2], all_data.data['knots_list_u'][2], all_data.data['knots_list_v'][2])
+    model_subdivided_mesh, all_data.data['points_1'] = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][0], all_data.data['dimension'][0], all_data.data['knots_list_u'][0], all_data.data['knots_list_v'][0])
+    model_subdivided_mesh_1, all_data.data['points_2'] = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][1], all_data.data['dimension'][1], all_data.data['knots_list_u'][1], all_data.data['knots_list_v'][1])
+    model_subdivided_mesh_2, all_data.data['points_3'] = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][2], all_data.data['dimension'][2], all_data.data['knots_list_u'][2], all_data.data['knots_list_v'][2])
     all_data.data['surf_1_'] = model_subdivided_mesh
     all_data.data['surf_2_'] = model_subdivided_mesh_1
     all_data.data['surf_3_'] = model_subdivided_mesh_2
@@ -46,7 +46,7 @@ def interactive_plotting(all_data, degree, a, b):
     # 2.1.2 updating control cage when its points are moved/manipulated
     def update_control_cage(point, idx):
         all_data.data['ctr_points_plot'][0][idx] = point
-        dat = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][0], all_data.data['dimension'][0], all_data.data['ctr_points'][0], all_data.data['knots_list_u'][0], all_data.data['knots_list_v'][0])
+        dat, all_data.data['points_1'] = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][0], all_data.data['dimension'][0], all_data.data['knots_list_u'][0], all_data.data['knots_list_v'][0])
         all_data.data['surf_1'] = mesh_points(dat, dim)
         all_data.data['surf_1_'] = dat
         pl.add_mesh(dat, color='sandybrown', use_transparency=False, show_edges=False, pickable=False, name='subdivided_surface1')
@@ -71,7 +71,7 @@ def interactive_plotting(all_data, degree, a, b):
     # 2.2.2. updating control cage when its points are moved/manipulated
     def update_control_cage1(point, idx):
         all_data.data['ctr_points_plot'][1][idx] = point
-        dat = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][1], all_data.data['dimension'][1], all_data.data['ctr_points'][1], all_data.data['knots_list_u'][1], all_data.data['knots_list_v'][1])
+        dat, all_data.data['points_2'] = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][1], all_data.data['dimension'][1], all_data.data['knots_list_u'][1], all_data.data['knots_list_v'][1])
         all_data.data['surf_2'] = mesh_points(dat, dim)
         all_data.data['surf_2_'] = dat
         pl.add_mesh(dat, color='darkgray', use_transparency=False, show_edges=False, pickable=False, name='subdivided_surface2')
@@ -95,7 +95,7 @@ def interactive_plotting(all_data, degree, a, b):
     # 2.2.2. updating control cage when its points are moved/manipulated
     def update_control_cage2(point, idx):
         all_data.data['ctr_points_plot'][2][idx] = point
-        dat = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][2], all_data.data['dimension'][2], all_data.data['ctr_points'][2], all_data.data['knots_list_u'][2], all_data.data['knots_list_v'][2])
+        dat, all_data.data['points_3'] = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][2], all_data.data['dimension'][2], all_data.data['knots_list_u'][2], all_data.data['knots_list_v'][2])
         all_data.data['surf_3'] = mesh_points(dat, dim)
         all_data.data['surf_3_'] = dat
         pl.add_mesh(dat, color='sienna', use_transparency=False, show_edges=False, pickable=False, name='subdivided_surface3')
