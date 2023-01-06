@@ -1,7 +1,5 @@
 import pyvista as pv
 import time
-
-
 def interactive_plotting(all_data, degree, a, b):
     # 1.
     pl = pv.Plotter()
@@ -22,6 +20,7 @@ def interactive_plotting(all_data, degree, a, b):
     selection_edge_idx = []
     radius_start = [0.1]
     '''
+
 
     # 2.1 Pyvista display setup
     def enable_sphere_widget(check):
