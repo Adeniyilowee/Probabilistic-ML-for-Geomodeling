@@ -1,5 +1,7 @@
 import pyvista as pv
 import time
+
+
 def interactive_plotting(all_data, degree, a, b):
     # 1.
     pl = pv.Plotter()
@@ -7,8 +9,8 @@ def interactive_plotting(all_data, degree, a, b):
     data_points_mesh = all_data.datapoint_model()
     start = time.time()
     dim = (a, b, 1)
-    model_subdivided_mesh = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][0], all_data.data['dimension'][0], all_data.data['ctr_points'][0], all_data.data['knots_list_u'][0], all_data.data['knots_list_v'][0])
-    model_subdivided_mesh_1 = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][1], all_data.data['dimension'][1], all_data.data['ctr_points'][1], all_data.data['knots_list_u'][1], all_data.data['knots_list_v'][1])
+    model_subdivided_mesh, all_data.data['points_1'] = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][0], all_data.data['dimension'][0], all_data.data['knots_list_u'][0], all_data.data['knots_list_v'][0])
+    model_subdivided_mesh_1, all_data.data['points_2'] = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][1], all_data.data['dimension'][1], all_data.data['knots_list_u'][1], all_data.data['knots_list_v'][1])
     all_data.data['surf_1_'] = model_subdivided_mesh
     all_data.data['surf_2_'] = model_subdivided_mesh_1
     all_data.data['surf_1'] = mesh_points(model_subdivided_mesh, dim)
@@ -19,7 +21,6 @@ def interactive_plotting(all_data, degree, a, b):
     selection = []
     selection_edge_idx = []
     radius_start = [0.1]
-
 
     # 2.1 Pyvista display setup
     def enable_sphere_widget(check):
@@ -45,7 +46,7 @@ def interactive_plotting(all_data, degree, a, b):
     # 2.1.2 updating control cage when its points are moved/manipulated
     def update_control_cage(point, idx):
         all_data.data['ctr_points_plot'][0][idx] = point
-        dat = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][0], all_data.data['dimension'][0], all_data.data['ctr_points'][0], all_data.data['knots_list_u'][0], all_data.data['knots_list_v'][0])
+        dat, all_data.data['points_1'] = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][0], all_data.data['dimension'][0], all_data.data['knots_list_u'][0], all_data.data['knots_list_v'][0])
         all_data.data['surf_1'] = mesh_points(dat, dim)
         all_data.data['surf_1_'] = dat
         pl.add_mesh(dat, color='sandybrown', use_transparency=False, show_edges=False, pickable=False, name='subdivided_surface1')
@@ -70,7 +71,7 @@ def interactive_plotting(all_data, degree, a, b):
     # 2.2.2. updating control cage when its points are moved/manipulated
     def update_control_cage1(point, idx):
         all_data.data['ctr_points_plot'][1][idx] = point
-        dat = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][1], all_data.data['dimension'][1], all_data.data['ctr_points'][1], all_data.data['knots_list_u'][1], all_data.data['knots_list_v'][1])
+        dat, all_data.data['points_2'] = all_data.subsurfmodel(a, b, all_data.data['ctr_points_plot'][1], all_data.data['dimension'][1], all_data.data['knots_list_u'][1], all_data.data['knots_list_v'][1])
         all_data.data['surf_2'] = mesh_points(dat, dim)
         all_data.data['surf_2_'] = dat
         pl.add_mesh(dat, color='darkgray', use_transparency=False, show_edges=False, pickable=False, name='subdivided_surface2')
@@ -97,9 +98,9 @@ def create_model(vertices):
 
 
 def create_model2(vertices):
-
     see = pv.PolyData(vertices)
     return see
+
 
 def mesh_points(mesh, dim):
     layer_points_x = mesh.points.reshape(dim[:-1] + (3,), order='F')[..., -3]
