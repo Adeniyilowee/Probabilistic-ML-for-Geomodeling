@@ -103,8 +103,17 @@ sub5 =  [
         ]
 
 w = 1
-data = file.read_data(sub4, w)
+data = file.read_data(sub2, w)
 
 
-subdivision_data = data.visualize_interactive(300, 300)
-volumetrics = data.volumetric_mesh(10, 1)
+subdivision_data = data.visualize_interactive(100, 100)
+level = 5
+volumetrics = data.volumetric_mesh(level, 1)
+volume_voxel = data.vol_voxelization_2()
+iteration = 50
+lith_block_MC = data.gaussian_MC(100, 100, level, iteration)
+
+simulation = data.simulation()
+
+probability = data.probability()
+entropy = data.entropy()
