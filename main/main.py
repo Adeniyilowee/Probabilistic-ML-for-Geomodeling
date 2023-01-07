@@ -178,7 +178,6 @@ class Fit(object):
             volume = interp_z[..., None] * [0, 0, 1] + interp_y[..., None] * [0, 1, 0] + interp_x[..., None] * [1, 0, 0]
             mesh = pv.StructuredGrid(*volume.transpose())
 
-            # ---------------------- thickness -------------------------#
             # estimating the thickness to be used during MCMC as a constraint
             surf_upper = []
             surf_lower = []
@@ -238,7 +237,6 @@ class Fit(object):
             volume = interp_z[..., None] * [0, 0, 1] + interp_y[..., None] * [0, 1, 0] + interp_x[..., None] * [1, 0, 0]
             mesh = pv.StructuredGrid(*volume.transpose())
 
-            # ---------------------- thickness -------------------------#
             # estimating the thickness to be used during MCMC as a constraint
             surf_upper = []
             surf_lower = []
@@ -504,7 +502,7 @@ class Fit(object):
 
         return final_geo
 
-    ###################################################################### Simulation MC ########################################################################
+
     def gaussian_MC(self, a, b, density, size):
         # this is to extract z values from a gaussian/normal distribution and use in the simulation to generate multiple grids but for MC
         dim = (a, b, 1)
@@ -663,7 +661,6 @@ class Fit(object):
         # evaluate(init_g)
         # evaluate(init_l)
 
-    ################################################## PLOT ARENA ##############################################################
     def plot_posterior_distribution(self):
 
         top_hist = pd.DataFrame(self.data['top_posterior_']).add_prefix('control_top')
