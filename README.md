@@ -8,7 +8,7 @@ from main.data import file
 ```
 ```python
 # This is a work in progress!!
-# Follow this ReadMe file or run the main_ex.py file
+# Follow this ReadMe file or run the example.py file
 ```
 ```python
 # !!
