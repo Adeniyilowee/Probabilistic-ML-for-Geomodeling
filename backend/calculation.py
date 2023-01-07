@@ -71,7 +71,6 @@ def parameterization(points, degree, u):
     return param, knots
 
 
-# Step 2
 
 def basis_function(parameters, knots, i, j):
     N_value = 0.
@@ -191,7 +190,7 @@ def spline_matrix(parameters, knots):
     return spline_matrix
 
 
-# Step 3
+
 
 
 def all_ctrl(basis_matrix_u, basis_matrix_v, points):
@@ -214,7 +213,7 @@ def all_ctrl(basis_matrix_u, basis_matrix_v, points):
 
 
 def TDMA(a, b, c, d):
-    # Tri-diagonal matrix solver for a system of linear equations
+    # Tri-diagonal matrix solver of a system of linear equations
 
     lenght_ = len(d)
     l_diagonals, m_diagonals, u_diagonals, x_y = map(list, (a, b, c, d))
@@ -278,7 +277,7 @@ def TDMAsolver(basis_matrix, data_point):
     return control_points
 
 
-# Step 4
+
 @njit()
 def CDB_recursion(x, degree, i, knots_list):
     if degree == 0:

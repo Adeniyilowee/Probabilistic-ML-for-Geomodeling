@@ -1,25 +1,17 @@
 import numpy as np
-from scipy.interpolate import LinearNDInterpolator
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import os
-
 from discretize import TensorMesh
 from discretize.utils import mkvc
-
 from SimPEG.utils import plot2Ddata, model_builder, surface2ind_topo
 import discretize
 from pymatsolver import SolverLU
-from SimPEG import maps
 from SimPEG.potential_fields import gravity
-
 from SimPEG import maps, data, data_misfit, inverse_problem, regularization, optimization, directives, inversion, utils
 
 
 def geophysics_data_final(points_of_interest):
     # Defining topography 
     [x_topo, y_topo] = np.meshgrid(np.linspace(0, 100, 41), np.linspace(0, 100, 41))
-    z_topo = np.array([0]*1681)
+    z_topo = np.array([0] * 1681)
     x_topo, y_topo = mkvc(x_topo), mkvc(y_topo)
     topo_xyz = np.c_[x_topo, y_topo, z_topo]
 
@@ -28,16 +20,14 @@ def geophysics_data_final(points_of_interest):
     x = np.linspace(0.0, 100.0, 10)
     y = np.linspace(0.0, 100.0, 10)
     x, y = np.meshgrid(x, y)
-    z = np.array([0]*(100))
+    z = np.array([0] * (100))
     x, y = mkvc(x.T), mkvc(y.T)
 
-    #fun_interp = LinearNDInterpolator(np.c_[x_topo, y_topo], z_topo)
-    #z = fun_interp(np.c_[x, y])
+    # fun_interp = LinearNDInterpolator(np.c_[x_topo, y_topo], z_topo)
+    # z = fun_interp(np.c_[x, y])
     receiver_locations = np.c_[x, y, z]
 
-
-
-    # Define the component(s) of the field 
+    # Define the component(s) of the field
     components = ["gz"]
     receiver_list = gravity.receivers.Point(receiver_locations, components=components)
     receiver_list = [receiver_list]
@@ -57,7 +47,7 @@ def geophysics_data_final(points_of_interest):
     background_density = 0.0
     formation_density = 0.2
 
-    ind_active = surface2ind_topo(mesh, topo_xyz) 
+    ind_active = surface2ind_topo(mesh, topo_xyz)
     nC = int(ind_active.sum())
     model_map = maps.IdentityMap(nP=nC)
     model = background_density * np.ones(nC)
@@ -67,20 +57,19 @@ def geophysics_data_final(points_of_interest):
     ind_polygon = ind_polygon[ind_active]
     model[ind_polygon] = formation_density
 
-    simulation = gravity.simulation.Simulation3DIntegral(survey=survey, mesh=mesh, rhoMap=model_map, 
-                                                        ind_active=ind_active, store_sensitivities="forward_only")
+    simulation = gravity.simulation.Simulation3DIntegral(survey=survey, mesh=mesh, rhoMap=model_map,
+                                                         ind_active=ind_active, store_sensitivities="forward_only")
     dpred = simulation.dpred(model)
     maximum_anomaly = np.max(np.abs(dpred))
     rec = receiver_list[0].locations
 
     return rec, dpred
-   
 
 
 def geophysics_data_(points_of_interest, resolution):
     # Defining topography 
     [x_topo, y_topo] = np.meshgrid(np.linspace(0, 100, 41), np.linspace(0, 100, 41))
-    z_topo = np.array([0]*1681)
+    z_topo = np.array([0] * 1681)
     x_topo, y_topo = mkvc(x_topo), mkvc(y_topo)
     topo_xyz = np.c_[x_topo, y_topo, z_topo]
 
@@ -89,16 +78,14 @@ def geophysics_data_(points_of_interest, resolution):
     x = np.linspace(0.0, 100.0, 10)
     y = np.linspace(0.0, 100.0, 10)
     x, y = np.meshgrid(x, y)
-    z = np.array([0]*(100))
+    z = np.array([0] * (100))
     x, y = mkvc(x.T), mkvc(y.T)
 
-    #fun_interp = LinearNDInterpolator(np.c_[x_topo, y_topo], z_topo)
-    #z = fun_interp(np.c_[x, y])
+    # fun_interp = LinearNDInterpolator(np.c_[x_topo, y_topo], z_topo)
+    # z = fun_interp(np.c_[x, y])
     receiver_locations = np.c_[x, y, z]
 
-
-
-    # Define the component(s) of the field 
+    # Define the component(s) of the field
     components = ["gz"]
     receiver_list = gravity.receivers.Point(receiver_locations, components=components)
     receiver_list = [receiver_list]
@@ -118,7 +105,7 @@ def geophysics_data_(points_of_interest, resolution):
     background_density = 0.0
     formation_density = 0.2
 
-    ind_active = surface2ind_topo(mesh, topo_xyz) 
+    ind_active = surface2ind_topo(mesh, topo_xyz)
     nC = int(ind_active.sum())
     model_map = maps.IdentityMap(nP=nC)
     model = background_density * np.ones(nC)
@@ -128,8 +115,8 @@ def geophysics_data_(points_of_interest, resolution):
     ind_polygon = ind_polygon[ind_active]
     model[ind_polygon] = formation_density
 
-    simulation = gravity.simulation.Simulation3DIntegral(survey=survey, mesh=mesh, rhoMap=model_map, 
-                                                        ind_active=ind_active, store_sensitivities="forward_only")
+    simulation = gravity.simulation.Simulation3DIntegral(survey=survey, mesh=mesh, rhoMap=model_map,
+                                                         ind_active=ind_active, store_sensitivities="forward_only")
     dpred = simulation.dpred(model)
     maximum_anomaly = np.max(np.abs(dpred))
     np.random.seed(737)
@@ -146,7 +133,7 @@ def geophysics_data_(points_of_interest, resolution):
     data_object = data.Data(survey, dobs=dobs, standard_deviation=uncertainties)
     ind_active = surface2ind_topo(mesh, topo_xyz)
     nC = int(ind_active.sum())
-    model_map = maps.IdentityMap(nP=nC) 
+    model_map = maps.IdentityMap(nP=nC)
     starting_model = np.zeros(nC)
     simulation = gravity.simulation.Simulation3DIntegral(survey=survey, mesh=mesh, rhoMap=model_map, ind_active=ind_active)
     # LEAST SQUARE METHOD
@@ -164,9 +151,9 @@ def geophysics_data_(points_of_interest, resolution):
     # Add sensitivity weights
     sensitivity_weights = directives.UpdateSensitivityWeights(everyIter=False)
     # The directives are defined as a list.
-    directives_list = [update_IRLS,sensitivity_weights,
-        starting_beta, beta_schedule, save_iteration, update_jacobi,
-    ]
+    directives_list = [update_IRLS, sensitivity_weights,
+                       starting_beta, beta_schedule, save_iteration, update_jacobi,
+                       ]
     # Here we combine the inverse problem and the set of directives
     inv = inversion.BaseInversion(inv_prob, directives_list)
     plotting_map = maps.InjectActiveCells(mesh, ind_active, np.nan)
@@ -176,30 +163,7 @@ def geophysics_data_(points_of_interest, resolution):
     return recovered_model, plotting_map, mesh
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def geophysics_data(points_of_interest, resolution):
-
     # Direct Current (DC) operator
     grid = discretize.TensorMesh(resolution)
     direct = grid.face_divergence
