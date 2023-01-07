@@ -16,7 +16,7 @@ import pyvista as pv
 from numba import float64
 import matplotlib.ticker as mtick
 from SimPEG.utils import plot2Ddata
-#import PVGeo as pvg
+import PVGeo as pvg
 #import pymc as pm
 from scipy.stats import norm
 import tensorflow as tf
