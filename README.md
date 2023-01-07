@@ -81,7 +81,7 @@ entropy = data.entropy()
 
 
 # License
-The 2D Cubic Spline is under MIT license. https://choosealicense.com/licenses/mit/
+https://choosealicense.com/licenses/mit/
 
 
 # Developers
