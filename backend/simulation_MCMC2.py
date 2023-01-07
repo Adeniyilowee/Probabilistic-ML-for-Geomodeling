@@ -1,7 +1,6 @@
 import tensorflow as tf
 import tensorflow_probability as tfp
 tfd = tfp.distributions
-from backend import calculation
 import pyvista as pv
 import numpy as np
 from backend.geophysics_data import geophysics_data_, geophysics_data_final
@@ -247,7 +246,7 @@ class Bayesian_Inference_Analysis(object):
 
 
     
-    def HMCarlo(self,num_results,number_burnin,step_size,num_leapfrog_steps):
+    def HMCarlo(self, num_results, number_burnin, step_size, num_leapfrog_steps):
         hmc_kernel = tfp.mcmc.HamiltonianMonteCarlo( target_log_prob_fn=self.unnormalized_posterior_log_prob,
                                                     step_size = step_size,
                                                     num_leapfrog_steps = num_leapfrog_steps)
