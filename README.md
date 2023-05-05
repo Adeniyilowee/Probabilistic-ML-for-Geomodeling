@@ -1,5 +1,5 @@
 # Overview
-An optimized open-source python package for surfaces remapping and geological modeling
+A stochastic ML approach for surfaces data remapping and geological uncertainty modeling
 
 # Steps
 ```python
