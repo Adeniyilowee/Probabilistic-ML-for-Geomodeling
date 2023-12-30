@@ -1,4 +1,4 @@
-# Overview 1
+# Overview
 A stochastic ML approach for surfaces data remapping and geological uncertainty modeling
 
 # Steps
