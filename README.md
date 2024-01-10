@@ -3,8 +3,6 @@ A stochastic ML approach for surfaces data remapping and geological uncertainty 
 
 # Steps
 ```python
-# Faces are defined by the indices of the vertices and have the shape (n,3) for triangular meshes.
-# n is the number if faces. Each face is defined by three vertices
 from main.data import file
 
 surfaces = [
